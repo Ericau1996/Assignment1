@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     if (this.username != "") {
       console.log('User: '+this.username+' is logined.');
       sessionStorage.setItem('username', this.username);
-      this.router.navigateByUrl('/chat');
+      this.router.navigateByUrl('#');
     } else {
       console.log('wrong username');
       alert('Incorrect username');

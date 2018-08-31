@@ -1,7 +1,18 @@
-<nav>
-  <ul>
-    <li> <a routerLink="login">Login</a> </li>
-    <li> <a routerLink="chat">Chat</a> </li>
-  </ul>
-  
-</nav>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Assignment Chat</a>
+        </div>
+      <div>
+          <ul class="nav navbar-nav">
+              <li> <a routerLink="login">Login</a> </li>
+              <li> <a routerLink="chat">Chat</a> </li>
+            </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="dropdown-toggle" role="button" *ngIf="username"  (click)="logout()" href="#">Logout</a></li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>

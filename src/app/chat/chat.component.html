@@ -1,0 +1,10 @@
+<h2>Welcome {{username}}</h2>
+<button *ngIf="username" (click)="logout()" class="logout">Logout</button>
+
+<input [(ngModel)]="message" />
+<button (click) = "sendMessage()">Send</button>
+<div class="messages">
+  <div *ngFor="let message of message" class="message">
+    {{message.text}}
+  </div>
+</div>

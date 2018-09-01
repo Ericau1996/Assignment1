@@ -1,14 +1,16 @@
-<form (submit)="createaccount($event)">
-    Enter account name:
-    <br>
-    <input type="text" placeholder="Account name" [(ngModel)]='accountname' name="accountname" id="accountname">
-    <br>
-    <br>
-    Enter Email:
-    <br>
-    <input type="email" placeholder="E-mail" [(ngModel)]='email' name="email" id="email">
-    <br>
-    <br>
-    <button type="submit">Create</button>
+<h2>Welcome {{username}}</h2>
+<p>Role: {{role}}</p>
+
+
+<div *ngIf="admin">
+  Create a New User
+  <form (submit)="createUser($event)">
+    <input type="email" placeholder="Username" [(ngModel)]='newUsername' name="newUsername" id="newUsername" required />
+    <input type="email" placeholder="Email" [(ngModel)]='newEmail' name="newEmail" id="newEmail" required />
+    <select [(ngModel)]="newRole" name="newRole" id="newRole" required>
+      <option *ngFor="let newRole of availableRoles" [value]="newRole">{{newRole}}</option>
+    </select>
+    <button type="submit">Submit</button>
   </form>
+</div>
   

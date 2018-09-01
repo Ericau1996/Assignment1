@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
@@ -9,8 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { SocketService } from './services/socket/socket.service';
 import { AccountComponent } from './account/account.component';
-
-
+import { HttpModule } from '@angular/http'
 
 @NgModule({   
   declarations: [
@@ -24,7 +24,8 @@ import { AccountComponent } from './account/account.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpModule
   ],
   providers: [SocketService],
   bootstrap: [AppComponent]

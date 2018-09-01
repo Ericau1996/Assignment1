@@ -1,10 +1,24 @@
 <h2>Welcome {{username}}</h2>
 <button *ngIf="username" (click)="logout()" class="logout">Logout</button>
-
-<input [(ngModel)]="message" />
-<button (click) = "sendMessage()">Send</button>
+<br>
+Select chat room:
+<br>
+Open room
+<br>
+<h3>Chat Room: name</h3>
+<h4>Online members:</h4>
+<div class="users">
+    <div *ngFor="let user of users" class="users">
+      {{user}}
+    </div>
+</div>
+<br>
+<h4>Chat record:</h4>
 <div class="messages">
-  <div *ngFor="let message of message" class="message">
+  <div *ngFor="let message of messages" class="message">
     {{message.text}}
   </div>
 </div>
+<br>
+<input [(ngModel)]="message" />
+<button (click) = "sendMessage()">Send</button>

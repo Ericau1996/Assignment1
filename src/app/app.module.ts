@@ -8,6 +8,7 @@ import { MenuComponent } from './menu/menu.component';
 import { FormsModule } from '@angular/forms';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { SocketService } from './services/socket/socket.service';
+import { AccountComponent } from './account/account.component';
 
 
 
@@ -17,7 +18,8 @@ import { SocketService } from './services/socket/socket.service';
     LoginComponent,
     ChatComponent,
     MenuComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

@@ -9,25 +9,26 @@ export class SocketService {
   private url = "http://localhost:3000";
   private socket;
   constructor() {
-    this.socket = io(this.url);
+  this.socket = io(this.url);
   }
-  sendMessage (message){
+  sendMessage(message){
     this.socket.emit('add-message',message);
   }
-   getMessage(){
-     let obmessage = new Observable(
+  getMessages(){
+     let obmessages = new Observable(
 
 
        observer =>{
+        this.socket = io(this.url);
          
 
-         this.socket.on('message',(date)=> {observer.next(date);});
+        this.socket.on('message',(date)=> {observer.next(date);});
 
 
-         return ()=>{this.socket.disconnect();}
+        return ()=>{this.socket.disconnect();}
       
 
    })
-    return obmessage;
-}
+    return obmessages;
+  }
 }

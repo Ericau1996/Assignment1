@@ -17,11 +17,15 @@ export class LoginComponent implements OnInit {
 
   loginUser(event) {
     event.preventDefault();
-    if (this.username != "") {
+    if (this.username == "Eric") {
+      console.log('User: '+this.username+' is logined. Role: Super admin');
+      sessionStorage.setItem('username', this.username);
+      this.router.navigateByUrl('chat');
+    } else if(this.username != ""){
       console.log('User: '+this.username+' is logined.');
       sessionStorage.setItem('username', this.username);
-      this.router.navigateByUrl('#');
-    } else {
+      this.router.navigateByUrl('chat')
+    }else {
       console.log('wrong username');
       alert('Incorrect username');
     }

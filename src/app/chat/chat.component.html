@@ -3,8 +3,12 @@
 
 <input [(ngModel)]="message" />
 <button (click) = "sendMessage()">Send</button>
+<br>
+<br>
+  Chat history:
+<br>
 <div class="messages">
-  <div *ngFor="let message of message" class="message">
+  <div *ngFor="let message of messages" class="messages">
     {{message.text}}
   </div>
 </div>

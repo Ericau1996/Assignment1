@@ -1,5 +1,6 @@
 <h2>Welcome {{username}}</h2>
 <button *ngIf="username" (click)="logout()" class="logout">Logout</button>
+<<<<<<< HEAD
 <br>
 Select chat room:
 <br>
@@ -22,3 +23,17 @@ Open room
 <br>
 <input [(ngModel)]="message" />
 <button (click) = "sendMessage()">Send</button>
+=======
+
+<input [(ngModel)]="message" />
+<button (click) = "sendMessage()">Send</button>
+<br>
+<br>
+  Chat history:
+<br>
+<div class="messages">
+  <div *ngFor="let message of messages" class="messages">
+    {{message.text}}
+  </div>
+</div>
+>>>>>>> 529263297db71b2719d85f8d25601397717811d5

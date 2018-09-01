@@ -15,36 +15,53 @@ export class ChatComponent implements OnInit {
   message;
   users=[];
   user;
+  role: string;
   connection;
   connectionuser;
   constructor(private sockServ: SocketService, private router: Router) { }
 
   ngOnInit() {
+    this.username = sessionStorage.getItem('username');
+    this.role = sessionStorage.getItem('role');
     if (!sessionStorage.getItem('username')) {
       console.log('Not validated');
       sessionStorage.clear();
       alert("Not a valid User");
       this.router.navigateByUrl('login');
-    } else if(sessionStorage.getItem('username') == "Eric"){
+    } else if(this.role == 'groupAdmin'){
       this.username = sessionStorage.getItem('username');
       console.log("Session started for: " + this.username+"Role: Super admin");
       this.connection = this.sockServ.getMessages().subscribe(message => {
         this.messages.push(message);
         this.message = '';
       });
-    }else {
+    }else if(this.role == 'superAdmin'){
+      this.username = sessionStorage.getItem('username');
+      console.log("Session started for: " + this.username+"Role: Super admin");
+      this.connection = this.sockServ.getMessages().subscribe(message => {
+        this.messages.push(message);
+        this.message = '';
+      });
+    }else if(this.role == 'user'){
       this.username = sessionStorage.getItem('username');
       console.log("Session started for: " + this.username);
       this.connection = this.sockServ.getMessages().subscribe(message => {
         this.messages.push(message);
         this.message = '';
       });
+    }else{
+      console.log('Not validated');
+      sessionStorage.clear();
+      alert("Not a valid User");
+      this.router.navigateByUrl('login');
     }
   }
   
   sendMessage() {
-    if (sessionStorage.getItem('username')=="Eric") {
+    if (this.role == 'superAdmin') {
       this.sockServ.sendMessage(this.message + ' (Super.' + this.username + ')');
+    }else if (this.role == 'groupAdmin'){
+      this.sockServ.sendMessage(this.message + ' (Group.' + this.username + ')');
     }else{
       this.sockServ.sendMessage(this.message + ' (' + this.username + ')');
     }
@@ -57,12 +74,6 @@ export class ChatComponent implements OnInit {
     if (this.connectionuser) {
       this.connectionuser.unsubscribe();
     }
-  }
-
-  logout() {
-    sessionStorage.clear();
-    console.log('Session Cleared');
-    this.router.navigateByUrl('login');
   }
 
 }

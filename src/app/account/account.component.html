@@ -2,7 +2,7 @@
 <p>Role: {{role}}</p>
 
 
-<div *ngIf="admin">
+<div *ngIf="groupadmin">
   Create a New User
   <form (submit)="createUser($event)">
     <input type="email" placeholder="Username" [(ngModel)]='newUsername' name="newUsername" id="newUsername" required />
@@ -13,4 +13,16 @@
     <button type="submit">Submit</button>
   </form>
 </div>
+
+<div *ngIf="superadmin">
+    Create a New User
+    <form (submit)="createUser($event)">
+      <input type="email" placeholder="Username" [(ngModel)]='newUsername' name="newUsername" id="newUsername" required />
+      <input type="email" placeholder="Email" [(ngModel)]='newEmail' name="newEmail" id="newEmail" required />
+      <select [(ngModel)]="newRole" name="newRole" id="newRole" required>
+        <option *ngFor="let newRole of availableRolesSP" [value]="newRole">{{newRole}}</option>
+      </select>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
   

@@ -12,20 +12,28 @@ export class AccountComponent implements OnInit {
   username: string;
   email: string;
   role: string;
-  admin: boolean;
-  availableRoles = ['user', 'superAdmin', 'groupAdmin'];
+  groupadmin: boolean;
+  superadmin: boolean;
+  availableRoles = ['user', 'groupAdmin'];
+  availableRolesSP = ['user', 'superAdmin', 'groupAdmin'];
   constructor(private http: Http) { }
 
   ngOnInit() {
     
     this.username = sessionStorage.getItem('username');
     this.role = sessionStorage.getItem('role');
-    if (this.role == 'groupAdmin' || this.role == 'superAdmin') {
-      this.admin = true;
+    if (this.role == 'superAdmin') {
+      this.superadmin = true;
+      console.log(this.superadmin);
     } else {
-      this.admin = false;
+      this.superadmin = false;
     }
-    console.log(this.admin);
+    if (this.role == 'groupAdmin') {
+      this.groupadmin = true;
+      console.log(this.groupadmin);
+    } else {
+      this.groupadmin = false;
+    }
   }
 
   newUsername: string;

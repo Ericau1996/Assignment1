@@ -93,13 +93,11 @@ export class ChatComponent implements OnInit {
         this.channelArr = response._body.split(',');
         for (var i = 0; i < this.channelArr.length; i += 2) {
           console.log(this.channelgroupArr.length);
-          this.channelgroupArr.push({ 'room': this.channelArr[i] + ' : ' + this.channelArr[i + 1]});
+          this.channelgroupArr.push({ 'name': this.channelArr[i] + ' > ' + this.channelArr[i + 1], 'room': this.channelArr[i], 'channel': this.channelArr[i + 1] });
         }
         console.log(this.channelgroupArr);
       });
 
-      for (var i = 0; i < this.channelgroupArr.length; i++) {
-        }
     }
   
   sendMessage() {

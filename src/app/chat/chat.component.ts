@@ -129,6 +129,27 @@ export class ChatComponent implements OnInit {
     alert('Please enter details.')
   }}
 
+  newChannelname: string;
+
+  createChannel(event) {
+    event.preventDefault();
+    console.log(this.newChannelname);
+    if (this.newChannelname != undefined && this.newChannelname.trim() != '') {
+    this.data = this.http.get(this.apiURL + 'addchannel?channelname=' +this.newChannelname);
+    this.data.subscribe(response => {
+      console.log(response._body)
+      console.log(typeof response._body);
+      if (response._body == 'true') {
+        alert('Channel has been sucessfuly!')
+        window.location.reload();
+      } else {
+        alert('Channel already exist.')
+      }
+    });
+  } else {
+    alert('Please enter details.')
+  }}
+
   addUserToRoom(event) {
     event.preventDefault();
     console.log(this.selectedUser);

@@ -1,10 +1,18 @@
 <h2>Welcome {{username}}</h2>
 
 <div *ngIf="superadmin">
-  <h4>Add chat room:</h4>
+  <h4>Add Group:</h4>
   <form (submit)="createRoom($event)">
     Enter Room name:&nbsp;
-    <input type="email" placeholder="Roomname" [(ngModel)]='newRoomname' name="newRoomname" id="newRoomname" required />
+    <input type="email" placeholder="Group name" [(ngModel)]='newRoomname' name="newRoomname" id="newRoomname" required />
+    <button type="submit">Submit</button>
+  </form>
+</div>
+<div *ngIf="superadmin">
+  <h4>Add channel:</h4>
+  <form (submit)="createChannel($event)">
+    Enter Channel name:&nbsp;
+    <input type="email" placeholder="Channel name" [(ngModel)]='newChannelname' name="newChannelname" id="newChannelname" required />
     <button type="submit">Submit</button>
   </form>
 </div>
@@ -16,7 +24,7 @@
       <option *ngFor="let selectedUser of userArr" [value]="selectedUser">{{selectedUser}}</option>
     </select>
     <br>
-    Choose room:&nbsp;
+    Choose group:&nbsp;
     <select [(ngModel)]="selectedRoom" name="selectedRoom" id="selectedRoom" required>
       <option *ngFor="let selectedRoom of roomArr" [value]="selectedRoom">{{selectedRoom}}</option>
     </select>
@@ -27,10 +35,41 @@
 
 
 
-<br>
-Select chat room:
-<br>
-Open room
+<div *ngIf="groupadmin">
+  <h4>Add Group :</h4>
+  <form (submit)="createRoom($event)">
+    Enter Room name:&nbsp;
+    <input type="email" placeholder="Group name" [(ngModel)]='newRoomname' name="newRoomname" id="newRoomname" required />
+    <button type="submit">Submit</button>
+  </form>
+</div>
+<div *ngIf="groupadmin">
+  <h4>Add channel:</h4>
+  <form (submit)="createChannel($event)">
+    Enter Channel name:&nbsp;
+    <input type="email" placeholder="Channel name" [(ngModel)]='newChannelname' name="newChannelname" id="newChannelname" required />
+    <button type="submit">Submit</button>
+  </form>
+</div>
+<div *ngIf="groupadmin">
+  <h4>Add user to chat room:</h4>
+  <form (submit)="addUserToRoom($event)">
+    Choose user:&nbsp;
+    <select [(ngModel)]="selectedUser" name="selectedUser" id="selectedUser" required>
+      <option *ngFor="let selectedUser of userArr" [value]="selectedUser">{{selectedUser}}</option>
+    </select>
+    <br>
+    Choose group:&nbsp;
+    <select [(ngModel)]="selectedRoom" name="selectedRoom" id="selectedRoom" required>
+      <option *ngFor="let selectedRoom of roomArr" [value]="selectedRoom">{{selectedRoom}}</option>
+    </select>
+    <br>
+    <button type="submit">Add</button>
+  </form>
+</div>
+
+
+
 <br>
 <h3>Chat Room: name</h3>
 <h4>Online members:</h4>

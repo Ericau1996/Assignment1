@@ -19,4 +19,5 @@ require('./routes/chatrooms.js')(app, fs);
 require('./routes/users.js')(app, fs);
 require('./routes/addroom.js')(app, fs);
 require('./routes/channels.js')(app, fs);
+require('./routes/addchannel.js')(app, fs);
 require('./routes/addusertogroup.js')(app, fs);

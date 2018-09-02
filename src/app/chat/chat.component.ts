@@ -108,5 +108,22 @@ export class ChatComponent implements OnInit {
       this.connectionuser.unsubscribe();
     }
   }
+  newRoomname: string;
+
+  createRoom(event) {
+    event.preventDefault();
+    console.log(this.newRoomname);
+    this.data = this.http.get(this.apiURL + 'addroom?roomname=' +this.newRoomname);
+    this.data.subscribe(response => {
+      console.log(response._body)
+      console.log(typeof response._body);
+      if (response._body == 'true') {
+        alert('Room has been sucessfuly!')
+        window.location.reload();
+      } else {
+        alert('Error: create room.')
+      }
+    });
+  }
 
 }

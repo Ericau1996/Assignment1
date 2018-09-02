@@ -62,7 +62,6 @@ export class AccountComponent implements OnInit {
     });
   } else {
     alert('Please enter details.')
-  }
-}
+  }}
 
 }

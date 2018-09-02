@@ -1,4 +1,32 @@
 <h2>Welcome {{username}}</h2>
+
+<div *ngIf="superadmin">
+  <h4>Add chat room:</h4>
+  <form (submit)="createRoom($event)">
+    Enter Room name:&nbsp;
+    <input type="email" placeholder="Roomname" [(ngModel)]='newRoomname' name="newRoomname" id="newRoomname" required />
+    <button type="submit">Submit</button>
+  </form>
+</div>
+<div *ngIf="superadmin">
+  <h4>Add user to chat room:</h4>
+  <form (submit)="addUserToRoom($event)">
+    Choose user:&nbsp;
+    <select [(ngModel)]="selectedUser" name="selectedUser" id="selectedUser" required>
+      <option *ngFor="let selectedUser of userArr" [value]="selectedUser">{{selectedUser}}</option>
+    </select>
+    <br>
+    Choose room:&nbsp;
+    <select [(ngModel)]="selectedRoom" name="selectedRoom" id="selectedRoom" required>
+      <option *ngFor="let selectedRoom of roomArr" [value]="selectedRoom">{{selectedRoom}}</option>
+    </select>
+    <br>
+    <button type="submit">Add</button>
+  </form>
+</div>
+
+
+
 <br>
 Select chat room:
 <br>

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SocketService } from '../services/socket/socket.service';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
+import { Http, Response } from '@angular/http';
 
 @Component({
   selector: 'app-chat',
@@ -15,19 +14,40 @@ export class ChatComponent implements OnInit {
   message;
   users=[];
   user;
+  userArr = [];
+  userData: any = {};
+  roomArr = [];
+  roomData: any = {};
   role: string;
   connection;
   connectionuser;
-  constructor(private sockServ: SocketService, private router: Router) { }
+  groupadmin: boolean;
+  superadmin: boolean
+  constructor(private sockServ: SocketService, private router: Router, private http: Http) { }
   
   newRoom: string;
   newCreatedby: string;
-  private apiURL = 'http://localhost:3000/api/chat?room=';
+  private apiURL = 'http://localhost:3000/api/';
   data: any = {};
+
+  selectedUser: string;
+  selectedRoom: string;
 
   ngOnInit() {
     this.username = sessionStorage.getItem('username');
     this.role = sessionStorage.getItem('role');
+    if (this.role == 'superAdmin') {
+      this.superadmin = true;
+      console.log(this.superadmin);
+    } else {
+      this.superadmin = false;
+    }
+    if (this.role == 'groupAdmin') {
+      this.groupadmin = true;
+      console.log(this.groupadmin);
+    } else {
+      this.groupadmin = false;
+    }
     if (!sessionStorage.getItem('username')) {
       console.log('Not validated');
       sessionStorage.clear();
@@ -60,8 +80,16 @@ export class ChatComponent implements OnInit {
       alert("Not a valid User");
       this.router.navigateByUrl('login');
     }
+    this.userData = this.http.get(this.apiURL + 'users');
+      this.userData.subscribe(response => {
+        this.userArr = response._body.split(',');
+    });
+    this.roomData = this.http.get(this.apiURL + 'rooms');
+      this.roomData.subscribe(response => {
+        this.roomArr = response._body.split(',');
+    });
   }
-  
+
   sendMessage() {
     if (this.role == 'superAdmin') {
       this.sockServ.sendMessage(this.message + ' (Super.' + this.username + ')');

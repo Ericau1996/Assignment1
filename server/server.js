@@ -15,4 +15,6 @@ require('./socket.js')(app, io);
 require('./listen.js')(http);
 require('./routes/auth.js')(app, fs);
 require('./routes/register.js')(app, fs);
-require('./routes/chatroom.js')(app, fs);
+require('./routes/chatrooms.js')(app, fs);
+require('./routes/users.js')(app, fs);
+require('./routes/addroom.js')(app, fs);

@@ -18,6 +18,9 @@ export class ChatComponent implements OnInit {
   userData: any = {};
   roomArr = [];
   roomData: any = {};
+  channelArr = [];
+  channelgroupArr = [];
+  channelData: any = {};
   role: string;
   connection;
   connectionuser;
@@ -29,9 +32,6 @@ export class ChatComponent implements OnInit {
   newCreatedby: string;
   private apiURL = 'http://localhost:3000/api/';
   data: any = {};
-
-  selectedUser: string;
-  selectedRoom: string;
 
   ngOnInit() {
     this.username = sessionStorage.getItem('username');
@@ -88,8 +88,20 @@ export class ChatComponent implements OnInit {
       this.roomData.subscribe(response => {
         this.roomArr = response._body.split(',');
     });
-  }
+    this.channelData = this.http.get(this.apiURL + 'channels');
+      this.channelData.subscribe(response => {
+        this.channelArr = response._body.split(',');
+        for (var i = 0; i < this.channelArr.length; i += 2) {
+          console.log(this.channelgroupArr.length);
+          this.channelgroupArr.push({ 'room': this.channelArr[i] + ' : ' + this.channelArr[i + 1]});
+        }
+        console.log(this.channelgroupArr);
+      });
 
+      for (var i = 0; i < this.channelgroupArr.length; i++) {
+        }
+    }
+  
   sendMessage() {
     if (this.role == 'superAdmin') {
       this.sockServ.sendMessage(this.message + ' (Super.' + this.username + ')');
@@ -129,41 +141,111 @@ export class ChatComponent implements OnInit {
     alert('Please enter details.')
   }}
 
+  
+  //create channel to group
+  selectedGroupForChannel: string;
   newChannelname: string;
-
   createChannel(event) {
     event.preventDefault();
-    console.log(this.newChannelname);
-    if (this.newChannelname != undefined && this.newChannelname.trim() != '') {
-    this.data = this.http.get(this.apiURL + 'addchannel?channelname=' +this.newChannelname);
-    this.data.subscribe(response => {
-      console.log(response._body)
-      console.log(typeof response._body);
-      if (response._body == 'true') {
-        alert('Channel has been sucessfuly!')
-        window.location.reload();
-      } else {
-        alert('Channel already exist.')
-      }
-    });
-  } else {
-    alert('Please enter details.')
-  }}
+    if (this.selectedGroupForChannel != undefined && this.newChannelname != undefined && this.newChannelname.trim() != '') {
+      this.data = this.http.get(this.apiURL + 'addchannel?roomname=' + this.selectedGroupForChannel + '&channelname=' + this.newChannelname);
+      this.data.subscribe(response => {
+        if (response._body == 'true') {
+          alert('Channel has been sucessfuly created!')
+          window.location.reload();
+        } else {
+          alert('Error, Channel already exist.')
+        }
+      });
+    } else {
+      alert('Field is empty')
+    }
+  }
+
+  //add user to room
+  selectedUser: string;
+  selectedRoom: string;
 
   addUserToRoom(event) {
     event.preventDefault();
-    console.log(this.selectedUser);
-    console.log(this.selectedRoom);
-    this.data = this.http.get(this.apiURL + 'addusertogroup?room=' +this.selectedRoom + '&user=' +this.selectedUser);
-    this.data.subscribe(response => {
-      console.log(response._body)
-      console.log(typeof response._body);
-      if (response._body == 'true') {
-        alert('Add user to group has been sucessfuly!')
-        window.location.reload();
-      } else {
-        alert('Error.')
-      }
-    });
+    if (this.selectedUser != undefined && this.selectedRoom != undefined) {
+      this.data = this.http.get(this.apiURL + 'addusertogroup?roomname=' + this.selectedRoom + '&username=' + this.selectedUser);
+      this.data.subscribe(response => {
+        console.log(response._body)
+        if (response._body == 'true') {
+          alert('User added to group!')
+          window.location.reload();
+        } else {
+          alert('User already exist in group')
+        }
+      });
+    } else {
+      alert('Empty field(s)')
+    }
+  }
+
+  //add user to channel
+  selectedUserForChannel: string;
+  selectedChannel: string;
+  addUserToChannel(event) {
+    event.preventDefault();
+    if (this.selectedUserForChannel != undefined && this.selectedChannel != undefined) {
+      var arr = [];
+      arr = this.selectedChannel.split(',');
+      this.data = this.http.get(this.apiURL + 'addusertochannel?roomname=' + arr[0] + '&username=' + this.selectedUserForChannel + '&channelname=' + arr[1]);
+      this.data.subscribe(response => {
+        console.log(response._body)
+        if (response._body == 'true') {
+          alert('User added to channel!')
+          window.location.reload();
+        } else {
+          alert('User already exist in channel')
+        }
+      });
+    } else {
+      alert('Empty field(s)');
+    }
+  }
+  // delete group
+  selectedGroupForDelete: string;
+  deleteRoom(event) {
+    event.preventDefault();
+    console.log(this.selectedGroupForDelete);
+    if (this.selectedGroupForDelete != undefined) {
+      this.data = this.http.get(this.apiURL + 'deleteroom?roomname=' + this.selectedGroupForDelete);
+      this.data.subscribe(response => {
+        console.log(response._body)
+        if (response._body == 'true') {
+          alert('Group has been sucessfuly deleted!')
+          window.location.reload();
+        } else {
+          alert('An error has occured')
+        }
+      });
+    } else {
+      console.log('Group is not selected');
+    }
+  }
+
+  //delete channel
+  selectedChannelForDelete: string;
+  deleteChannel(event) {
+    event.preventDefault();
+    if (this.selectedChannelForDelete != undefined) {
+      var arr = [];
+      arr = this.selectedChannelForDelete.split(',');
+      this.data = this.http.get(this.apiURL + 'deletechannel?roomname=' + arr[0] + '&channelname=' + arr[1]);
+      this.data.subscribe(response => {
+        console.log(response._body)
+        if (response._body == 'true') {
+          alert('Channel has been sucessfuly deleted!')
+          window.location.reload();
+        } else {
+          alert('An error has occured')
+        }
+      });
+    } else {
+      alert('Channel is not selected')
+    }
   }
 }

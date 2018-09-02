@@ -2,7 +2,7 @@ module.exports = function (app, fs) {
     app.get('/api/rooms', (req, res) => {
       var roomObj;
       var roomString ='';
-      fs.readFile('roomdata.json', 'utf8', function (err, data) {
+      fs.readFile('groupuser.json', 'utf8', function (err, data) {
         if (err) {
           console.log(err);
           res.send(false);

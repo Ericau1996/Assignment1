@@ -1,32 +1,43 @@
 module.exports = function (app, fs) {
     app.get('/api/addchannel', (req, res) => {
-      var isChannel = 0;
-      var channelObj;
-      var cname = req.query.channelname;
-  
-      fs.readFile('channels.json', 'utf-8', function (err, data) {
-        console.log(cname);
-        if (err) {
-          console.log(err);
-        } else {
-        channelObj = JSON.parse(data);
-          for (let i = 0; i<channelObj.length; i++) {
-            if (channelObj[i].channel == cname) {
+    var roomObj;
+    var rname = req.query.roomname;
+    var cname = req.query.channelname;
+    var channelAdded = false;
+    var isChannel = 0;
+    fs.readFile('groupuser.json', 'utf-8', function (err, data) {
+      if (err) {
+        console.log(err);
+      } else {
+        roomObj = JSON.parse(data);
+        for (let i = 0; i < roomObj.length; i++) {
+          if (roomObj[i].room == rname) {
+            for (let k = 0; k < roomObj[i].channel.length; k++) {
+              if (roomObj[i].channel[k].channel == cname) {
                 isChannel = 1
+                break;
+              }
+            }
+            if (isChannel > 0) {
+              console.log('channel already exist in room');
+            } else {
+                roomObj[i].channel.push({ 'channel': cname, 'user': [] });
+              channelAdded = true;
+              break;
             }
           }
-          if (isChannel ==1) {
-            res.send(false);
-          } else if (isChannel == 0){
-            channelObj.push({ 'channel': cname });
-            var newdata = JSON.stringify(channelObj);
-            fs.writeFile('channels.json', newdata, 'utf-8', function (err) {
-              if (err) throw err;
-              res.send(true);
-            });
-          }
         }
-      });
+        if (channelAdded == true) {
+          var newdata = JSON.stringify(roomObj);
+          fs.writeFile('groupuser.json', newdata, 'utf-8', function (err) {
+            if (err) throw err;
+            console.log('channel added')
+            res.send(true);
+          });
+        } else {
+          res.send(false);
+        }
+      }
     });
-  }
-  
+  });
+}

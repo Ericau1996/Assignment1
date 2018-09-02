@@ -2,7 +2,7 @@ module.exports = function (app, fs) {
     app.get('/api/channels', (req, res) => {
       var channelObj;
       var channelString ='';
-      fs.readFile('channels.json', 'utf8', function (err, data) {
+      fs.readFile('groupuser.json', 'utf8', function (err, data) {
         if (err) {
           console.log(err);
           res.send(false);

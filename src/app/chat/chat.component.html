@@ -11,28 +11,65 @@
 <div *ngIf="superadmin">
   <h4>Add channel:</h4>
   <form (submit)="createChannel($event)">
-    Enter Channel name:&nbsp;
+    Choose group:&nbsp;
+    <select [(ngModel)]="selectedGroupForChannel" name="selectedGroupForChannel" id="selectedGroupForChannel" required>
+        <option *ngFor="let selectedGroupForChannel of roomArr" [value]="selectedGroupForChannel">{{selectedGroupForChannel}}</option>
+    </select>
+    Add channel:&nbsp;
     <input type="email" placeholder="Channel name" [(ngModel)]='newChannelname' name="newChannelname" id="newChannelname" required />
     <button type="submit">Submit</button>
   </form>
 </div>
 <div *ngIf="superadmin">
-  <h4>Add user to chat room:</h4>
+  <h4>Add user to group:</h4>
   <form (submit)="addUserToRoom($event)">
-    Choose user:&nbsp;
-    <select [(ngModel)]="selectedUser" name="selectedUser" id="selectedUser" required>
-      <option *ngFor="let selectedUser of userArr" [value]="selectedUser">{{selectedUser}}</option>
-    </select>
-    <br>
     Choose group:&nbsp;
     <select [(ngModel)]="selectedRoom" name="selectedRoom" id="selectedRoom" required>
       <option *ngFor="let selectedRoom of roomArr" [value]="selectedRoom">{{selectedRoom}}</option>
     </select>
-    <br>
+    Add user:&nbsp;
+    <select [(ngModel)]="selectedUser" name="selectedUser" id="selectedUser" required>
+      <option *ngFor="let selectedUser of userArr" [value]="selectedUser">{{selectedUser}}</option>
+    </select>
     <button type="submit">Add</button>
   </form>
 </div>
-
+<div>
+    Add Existing User to Channel
+    <form (submit)="addUserToChannel($event)">
+      User:
+      <select [(ngModel)]="selectedUser3" name="selectedUser3" id="selectedUser3" required>
+        <option *ngFor="let selectedUser3 of userArr" [value]="selectedUser3">{{selectedUser3}}</option>
+      </select>
+      Group + Channel:
+      <select [(ngModel)]="selectedChannel" name="selectedChannel" id="selectedChannel" required>
+        <option *ngFor="let selectedChannel of channelgroupArr" [value]="[selectedChannel.group, selectedChannel.channel]">{{selectedChannel.name}}</option>
+      </select>
+      <button type="submit">Add</button>
+    </form>
+  </div>
+    <div *ngIf="superadmin">
+      <h4>Delete group:</h4>
+      <form (submit)="deleteRoom($event)">
+          Group:
+          <select [(ngModel)]="selectedGroupForDelete" name="selectedGroupForDelete" id="selectedGroupForDelete" required>
+            <option *ngFor="let selectedGroupForDelete of roomArr" [value]="selectedGroupForDelete">{{selectedGroupForDelete}}</option>
+          </select>
+          <button type="submit">Delete</button>
+        </form>
+    </div>
+    <div>
+    <div *ngIf="superadmin">
+        <h4>Delete Channel</h4>
+        <form (submit)="deleteChannel($event)">
+            Channel
+            <select [(ngModel)]="selectedChannelForDelete" name="selectedChannelForDelete" id="selectedChannelForDelete" required>
+              <option *ngFor="let selectedChannelForDelete of channelgroupArr" [value]="[selectedChannelForDelete.group, selectedChannelForDelete.channel]">{{selectedChannelForDelete.name}}</option>
+            </select>
+            <button type="submit">Delete</button>
+          </form>
+      </div>
+      <div>
 
 
 <div *ngIf="groupadmin">

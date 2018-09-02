@@ -1,1 +1,1 @@
-[{"group":"room 1","user":"1","channel":""},{"group":"room 2","user":"2","channel":""}]
+[{"room":"group1","user":["super","7","qwe"],"channel":[{"channel":"Channel1","user":["1","2","3","super"]},{"room":"1","user":["super","4"]},{"channel":"ewq","user":[]},{"channel":"ewqqwe","user":[]}]},{"room":"newnew","user":[],"channel":[]}]

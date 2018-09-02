@@ -21,3 +21,6 @@ require('./routes/addroom.js')(app, fs);
 require('./routes/channels.js')(app, fs);
 require('./routes/addchannel.js')(app, fs);
 require('./routes/addusertogroup.js')(app, fs);
+require('./routes/addusertochannel.js')(app, fs);
+require('./routes/deleteroom.js')(app, fs);
+require('./routes/deletechannel.js')(app, fs);

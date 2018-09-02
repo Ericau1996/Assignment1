@@ -48,12 +48,21 @@ export class AccountComponent implements OnInit {
     console.log(this.newUsername);
     console.log(this.newEmail);
     console.log(this.newRole);
+    if (this.newUsername != undefined && this.newEmail != undefined && this.newRole != undefined && this.newUsername.trim() != '' && this.newEmail.trim() != '') {
     this.data = this.http.get(this.apiURL + this.newUsername + '&email=' + this.newEmail + '&role=' + this.newRole);
     this.data.subscribe(response => {
       console.log(response._body)
       console.log(typeof response._body);
+      if (response._body == 'true') {
+        alert('User has been sucessfuly created/updated!')
+        window.location.reload();
+      } else {
+        alert('Username already exist.')
+      }
     });
-    //accounts.accounts.push({ username: this.newUsername, email: this.newEmail, role: this.newRole })
+  } else {
+    alert('Please enter details.')
   }
+}
 
 }

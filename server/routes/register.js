@@ -48,29 +48,29 @@ module.exports = function (app, fs) {
             }
           }
           if (isUser ==1) {
-            res.send({ 'username': '', 'success': false });
+            res.send(false);
           } else if (isUser == 2){
             userObj.push({ 'name': uname, 'email': uemail, 'role': urole });
             var newdata = JSON.stringify(userObj);
             fs.writeFile('authdata.json', newdata, 'utf-8', function (err) {
               if (err) throw err;
-              res.send({ 'username': uname, 'updated success': true });
+              res.send(true);
             });
           } else if (isUser == 0){
             userObj.push({ 'name': uname, 'email': uemail, 'role': urole });
             var newdata = JSON.stringify(userObj);
             fs.writeFile('authdata.json', newdata, 'utf-8', function (err) {
               if (err) throw err;
-              res.send({ 'username': uname, 'Created success': true });
+              res.send(true);
             });
           }else if (isUser == 3){
-            res.send({ 'username': '', 'Name already exist. success': false });
+            res.send(false);
           }else if (isUser == 4){
             userObj.push({ 'name': uname, 'email': uemail, 'role': urole });
             var newdata = JSON.stringify(userObj);
             fs.writeFile('authdata.json', newdata, 'utf-8', function (err) {
               if (err) throw err;
-              res.send({ 'username': uname, 'Deleted success': true });
+              res.send(true);
             });
           }
         }

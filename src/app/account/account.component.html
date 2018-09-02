@@ -1,27 +1,39 @@
 <h2>Welcome {{username}}</h2>
-<p>Role: {{role}}</p>
-
-
+<h3>Role: {{role}}</h3>
+<br>
+<br>
 <div *ngIf="groupadmin">
-  Create a New User
+  <h4>Manage User:</h4>
   <form (submit)="createUser($event)">
+    Enter Username:&nbsp;
     <input type="email" placeholder="Username" [(ngModel)]='newUsername' name="newUsername" id="newUsername" required />
+    <br>
+    Enter Email as password:&nbsp;
     <input type="email" placeholder="Email" [(ngModel)]='newEmail' name="newEmail" id="newEmail" required />
+    <br>
+    Enter Role for change:&nbsp;
     <select [(ngModel)]="newRole" name="newRole" id="newRole" required>
       <option *ngFor="let newRole of availableRoles" [value]="newRole">{{newRole}}</option>
     </select>
+    <br>
     <button type="submit">Submit</button>
   </form>
 </div>
 
 <div *ngIf="superadmin">
-    Create a New User
+    <h4>Manage User:</h4>
     <form (submit)="createUser($event)">
+      Enter Username:&nbsp;
       <input type="email" placeholder="Username" [(ngModel)]='newUsername' name="newUsername" id="newUsername" required />
+      <br>
+      Enter Email:&nbsp;
       <input type="email" placeholder="Email" [(ngModel)]='newEmail' name="newEmail" id="newEmail" required />
+      <br>
+      Enter Role for change:&nbsp;
       <select [(ngModel)]="newRole" name="newRole" id="newRole" required>
         <option *ngFor="let newRole of availableRolesSP" [value]="newRole">{{newRole}}</option>
       </select>
+      <br>
       <button type="submit">Submit</button>
     </form>
   </div>

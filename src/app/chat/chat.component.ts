@@ -19,6 +19,11 @@ export class ChatComponent implements OnInit {
   connection;
   connectionuser;
   constructor(private sockServ: SocketService, private router: Router) { }
+  
+  newRoom: string;
+  newCreatedby: string;
+  private apiURL = 'http://localhost:3000/api/chat?room=';
+  data: any = {};
 
   ngOnInit() {
     this.username = sessionStorage.getItem('username');

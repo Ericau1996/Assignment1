@@ -34,12 +34,17 @@ module.exports = function (app, fs) {
               userObj[i].email="user updated";
               userObj[i].role="user updated";
             }else if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role == "delete user" && urole != "delete user"){
-              isUser = 2
-            }else if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role != "delete user" && urole == "delete user"){
-              isUser = 2
+              isUser = 0
               userObj[i].name="user deleted";
               userObj[i].email="user deleted";
               userObj[i].role="user deleted";
+            }else if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role != "delete user" && urole == "delete user"){
+              isUser = 4
+              userObj[i].name="user deleted";
+              userObj[i].email="user deleted";
+              userObj[i].role="user deleted";
+            }else if (userObj[i].name == uname && userObj[i].email != uemail&& urole != "delete user") {
+              isUser = 3
             }
           }
           if (isUser ==1) {
@@ -57,6 +62,15 @@ module.exports = function (app, fs) {
             fs.writeFile('authdata.json', newdata, 'utf-8', function (err) {
               if (err) throw err;
               res.send({ 'username': uname, 'Created success': true });
+            });
+          }else if (isUser == 3){
+            res.send({ 'username': '', 'Name already exist. success': false });
+          }else if (isUser == 4){
+            userObj.push({ 'name': uname, 'email': uemail, 'role': urole });
+            var newdata = JSON.stringify(userObj);
+            fs.writeFile('authdata.json', newdata, 'utf-8', function (err) {
+              if (err) throw err;
+              res.send({ 'username': uname, 'Deleted success': true });
             });
           }
         }

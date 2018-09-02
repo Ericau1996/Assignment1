@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { SocketService } from '../services/socket/socket.service';
+import { Router } from '@angular/router';
 import { Http, Response } from '@angular/http';
-// import * as accounts from '../accounts';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class AccountComponent implements OnInit {
   superadmin: boolean;
   availableRoles = ['user', 'groupAdmin'];
   availableRolesSP = ['user', 'superAdmin', 'groupAdmin', 'delete user'];
-  constructor(private http: Http) { }
+  constructor(private sockServ: SocketService, private router: Router, private http: Http) { }
 
   ngOnInit() {
     
@@ -34,6 +35,25 @@ export class AccountComponent implements OnInit {
     } else {
       this.groupadmin = false;
     }
+    
+    if (!sessionStorage.getItem('username')) {
+      console.log('Not validated');
+      sessionStorage.clear();
+      alert("Not a valid User");
+      this.router.navigateByUrl('login');
+    } else if(this.role == 'groupAdmin'){
+      this.username = sessionStorage.getItem('username');
+    }else if(this.role == 'superAdmin'){
+      this.username = sessionStorage.getItem('username');
+    }else if(this.role == 'user'){
+      this.username = sessionStorage.getItem('username');
+      console.log("Session started for: " + this.username);
+    }else{
+      console.log('Not validated');
+      sessionStorage.clear();
+      alert("Not a valid User");
+      this.router.navigateByUrl('login');
+    }
   }
 
   newUsername: string;
@@ -41,7 +61,6 @@ export class AccountComponent implements OnInit {
   newRole: string;
   private apiURL = 'http://localhost:3000/api/reg?username=';
   data: any = {};
-
 
   createUser(event) {
     event.preventDefault();

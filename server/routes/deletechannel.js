@@ -13,7 +13,7 @@ module.exports = function (app, fs) {
             if (roomObj[i].room == rname) {
               for (let k = 0; i < roomObj[i].channel.length; k++) {
                 if (roomObj[i].channel[k].channel == cname) {
-                    roomObj[i].channel.splice(k, 1);
+                  roomObj[i].channel.splice(k, 1);
                   channelDeleted = true;
                   break;
                 }

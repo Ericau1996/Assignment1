@@ -20,7 +20,9 @@ export class ChatComponent implements OnInit {
   roomData: any = {};
   channelArr = [];
   channelgroupArr = [];
+  channelgroupArrForChannel = [];
   channelData: any = {};
+  channelCData: any = {};
   role: string;
   connection;
   connectionuser;
@@ -31,7 +33,14 @@ export class ChatComponent implements OnInit {
   newRoom: string;
   newCreatedby: string;
   private apiURL = 'http://localhost:3000/api/';
-  data: any = {};
+  data1: any = {};
+  data2: any = {};
+  data3: any = {};
+  data4: any = {};
+  data5: any = {};
+  data6: any = {};
+  data7: any = {};
+  data8: any = {};
 
   ngOnInit() {
     this.username = sessionStorage.getItem('username');
@@ -88,15 +97,41 @@ export class ChatComponent implements OnInit {
       this.roomData.subscribe(response => {
         this.roomArr = response._body.split(',');
     });
+
+
+    this.channelCData = this.http.get(this.apiURL + 'channels');
+    this.channelCData.subscribe(response => {
+      this.channelArr = response._body.split(',');
+      for (var i = 0; i < this.channelArr.length; i += 2) {
+        console.log(this.channelgroupArrForChannel.length);
+        this.channelgroupArrForChannel.push({ 'name': this.channelArr[i] + ' > ' + this.channelArr[i + 1], 'room': this.channelArr[i], 'channel': this.channelArr[i + 1] });
+      }
+      console.log(this.channelgroupArrForChannel);
+    });
+
     this.channelData = this.http.get(this.apiURL + 'channels');
-      this.channelData.subscribe(response => {
-        this.channelArr = response._body.split(',');
-        for (var i = 0; i < this.channelArr.length; i += 2) {
-          console.log(this.channelgroupArr.length);
-          this.channelgroupArr.push({ 'name': this.channelArr[i] + ' > ' + this.channelArr[i + 1], 'room': this.channelArr[i], 'channel': this.channelArr[i + 1] });
+    this.channelData.subscribe(response => {
+      this.channelArr = response._body.split(',');
+      for (var i = 0; i < this.channelArr.length; i += 2) {
+        if (this.channelgroupArr.length == 0) {
+          this.channelgroupArr.push({ 'room': this.channelArr[i], 'channel': [{ 'channel': this.channelArr[i + 1] }] });
+        } else if (this.channelgroupArr.length > 0) {
+          for (var k = 0; k < this.channelgroupArr.length; k++) {
+            if (this.channelgroupArr[k].room == this.channelArr[i]) {
+              this.channelgroupArr[k].channel.push({ 'channel': this.channelArr[i + 1] });
+              break;
+            } else if (k == this.channelgroupArr.length - 1){
+              this.channelgroupArr.push({ 'room': this.channelArr[i], 'channel': [{ 'channel': this.channelArr[i + 1] }] });
+              break;
+            }
+          }
+        } else {
+          console.log('channelgroupArr error');
         }
-        console.log(this.channelgroupArr);
-      });
+
+      }
+      console.log(this.channelgroupArr);
+    });
 
     }
   
@@ -124,15 +159,15 @@ export class ChatComponent implements OnInit {
     event.preventDefault();
     console.log(this.newRoomname);
     if (this.newRoomname != undefined && this.newRoomname.trim() != '') {
-    this.data = this.http.get(this.apiURL + 'addroom?roomname=' +this.newRoomname);
-    this.data.subscribe(response => {
+    this.data1 = this.http.get(this.apiURL + 'addroom?roomname=' +this.newRoomname);
+    this.data1.subscribe(response => {
       console.log(response._body)
       console.log(typeof response._body);
       if (response._body == 'true') {
-        alert('Room has been sucessfuly!')
+        alert('Chat room has been sucessfuly!')
         window.location.reload();
       } else {
-        alert('Group already exist.')
+        alert('Chat room already exist.')
       }
     });
   } else {
@@ -146,17 +181,17 @@ export class ChatComponent implements OnInit {
   createChannel(event) {
     event.preventDefault();
     if (this.selectedGroupForChannel != undefined && this.newChannelname != undefined && this.newChannelname.trim() != '') {
-      this.data = this.http.get(this.apiURL + 'addchannel?roomname=' + this.selectedGroupForChannel + '&channelname=' + this.newChannelname);
-      this.data.subscribe(response => {
+      this.data2 = this.http.get(this.apiURL + 'addchannel?roomname=' + this.selectedGroupForChannel + '&channelname=' + this.newChannelname);
+      this.data2.subscribe(response => {
         if (response._body == 'true') {
           alert('Channel has been sucessfuly created!')
           window.location.reload();
         } else {
-          alert('Error, Channel already exist.')
+          alert('Channel already exist.')
         }
       });
     } else {
-      alert('Field is empty')
+      alert('Please enter details.')
     }
   }
 
@@ -167,31 +202,30 @@ export class ChatComponent implements OnInit {
   addUserToRoom(event) {
     event.preventDefault();
     if (this.selectedUser != undefined && this.selectedRoom != undefined) {
-      this.data = this.http.get(this.apiURL + 'addusertogroup?roomname=' + this.selectedRoom + '&username=' + this.selectedUser);
-      this.data.subscribe(response => {
+      this.data3 = this.http.get(this.apiURL + 'addusertogroup?roomname=' + this.selectedRoom + '&username=' + this.selectedUser);
+      this.data3.subscribe(response => {
         console.log(response._body)
         if (response._body == 'true') {
-          alert('User added to group!')
+          alert('User has been sucessfuly to add to chat room!')
           window.location.reload();
         } else {
-          alert('User already exist in group')
+          alert('User already exist in chat room.')
         }
       });
     } else {
-      alert('Empty field(s)')
+      alert('Please enter details.')
     }
   }
 
   //add user to channel
   selectedUserForChannel: string;
+  selectedUserGroupForChannel: string;
   selectedChannel: string;
   addUserToChannel(event) {
     event.preventDefault();
-    if (this.selectedUserForChannel != undefined && this.selectedChannel != undefined) {
-      var arr = [];
-      arr = this.selectedChannel.split(',');
-      this.data = this.http.get(this.apiURL + 'addusertochannel?roomname=' + arr[0] + '&username=' + this.selectedUserForChannel + '&channelname=' + arr[1]);
-      this.data.subscribe(response => {
+    if (this.selectedUserForChannel != undefined && this.selectedChannel != undefined &&  this.selectedUserGroupForChannel != undefined) {
+      this.data5 = this.http.get(this.apiURL + 'addusertochannel?roomname=' + this.selectedUserGroupForChannel + '&username=' + this.selectedUserForChannel + '&channelname=' + this.selectedChannel);
+      this.data5.subscribe(response => {
         console.log(response._body)
         if (response._body == 'true') {
           alert('User added to channel!')
@@ -210,18 +244,18 @@ export class ChatComponent implements OnInit {
     event.preventDefault();
     console.log(this.selectedGroupForDelete);
     if (this.selectedGroupForDelete != undefined) {
-      this.data = this.http.get(this.apiURL + 'deleteroom?roomname=' + this.selectedGroupForDelete);
-      this.data.subscribe(response => {
+      this.data5 = this.http.get(this.apiURL + 'deleteroom?roomname=' + this.selectedGroupForDelete);
+      this.data5.subscribe(response => {
         console.log(response._body)
         if (response._body == 'true') {
-          alert('Group has been sucessfuly deleted!')
+          alert('Chat room has been sucessfuly deleted!')
           window.location.reload();
         } else {
-          alert('An error has occured')
+          alert('Error of delete chat room.')
         }
       });
     } else {
-      console.log('Group is not selected');
+      console.log('Please enter details.');
     }
   }
 
@@ -232,18 +266,61 @@ export class ChatComponent implements OnInit {
     if (this.selectedChannelForDelete != undefined) {
       var arr = [];
       arr = this.selectedChannelForDelete.split(',');
-      this.data = this.http.get(this.apiURL + 'deletechannel?roomname=' + arr[0] + '&channelname=' + arr[1]);
-      this.data.subscribe(response => {
+      this.data6 = this.http.get(this.apiURL + 'deletechannel?roomname=' + arr[0] + '&channelname=' + arr[1]);
+      this.data6.subscribe(response => {
         console.log(response._body)
         if (response._body == 'true') {
           alert('Channel has been sucessfuly deleted!')
           window.location.reload();
         } else {
-          alert('An error has occured')
+          alert('Error of delete channel.')
         }
       });
     } else {
-      alert('Channel is not selected')
+      alert('Please enter details.')
+    }
+  }
+
+  //delete user from group
+  selectedUserDeleteGroup: string;
+  selectedGroupDeleteGroup: string;
+  deleteUserFromGroup(event) {
+    event.preventDefault();
+    if (this.selectedUserDeleteGroup != undefined && this.selectedGroupDeleteGroup != undefined) {
+      this.data3 = this.http.get(this.apiURL + 'deleteuserfromgroup?roomname=' + this.selectedGroupDeleteGroup + '&username=' + this.selectedUserDeleteGroup);
+      this.data3.subscribe(response => {
+        console.log(response._body)
+        if (response._body == 'true') {
+          alert('User has been sucessfuly from chat room!')
+          window.location.reload();
+        } else {
+          alert('User does not exist in group')
+        }
+      });
+    } else {
+      alert('Please enter details.')
+    }
+  }
+
+  //delete user from channel
+  selectedUserDeleteChannel: string;
+  selectedGroupDeleteChannel: string;
+  selectedChannelDeleteChannel: string;
+  deleteUserFromChannel(event) {
+    event.preventDefault();
+    if (this.selectedUserDeleteChannel != undefined && this.selectedChannelDeleteChannel != undefined && this.selectedGroupDeleteChannel != undefined) {
+      this.data8 = this.http.get(this.apiURL + 'deleteuserfromchannel?roomname=' + this.selectedGroupDeleteChannel + '&username=' + this.selectedUserDeleteChannel + '&channelname=' + this.selectedChannelDeleteChannel);
+      this.data8.subscribe(response => {
+        console.log(response._body)
+        if (response._body == 'true') {
+          alert('User removed from channel!')
+          window.location.reload();
+        } else {
+          alert('User does not exist in channel')
+        }
+      });
+    } else {
+      alert('Empty field(s)');
     }
   }
 }

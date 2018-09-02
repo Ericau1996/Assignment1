@@ -23,18 +23,6 @@ export class LoginComponent implements OnInit {
   loginUser(event) {
     event.preventDefault();
     this.getAuth();
-    /*for (var i = 0; i < accounts.accounts.length; i++) {
-      console.log('i= ' + i + ', comparing account: ' + accounts.accounts[i].username + ' with username: ' + this.username);
-      if (accounts.accounts[i].username == this.username) {
-        sessionStorage.setItem('username', this.username);
-        sessionStorage.setItem('accountNo', i.toString());
-        this.router.navigateByUrl('/account');
-        break;
-      }
-      if (i == accounts.accounts.length - 1) {
-        alert('Username does not exist');
-      }
-    }*/
   }
 
 
@@ -67,11 +55,4 @@ export class LoginComponent implements OnInit {
       console.log(details);
     }
   }
-  /*
-  getData() {
-    this.getAuth().subscribe(data => {
-      console.log(data);
-      this.data = data
-    });
-  }*/
 }

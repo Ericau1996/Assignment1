@@ -5,7 +5,7 @@ module.exports = function (app, fs) {
     fs.readFile('groupuser.json', 'utf8', function (err, data) {
       if (err) {
         console.log(err);
-        res.send(false);
+        res.send(false);  
       } else {
         roomObj = JSON.parse(data);
         for (let i = 0; i < roomObj.length; i++) {

@@ -24,3 +24,5 @@ require('./routes/addusertogroup.js')(app, fs);
 require('./routes/addusertochannel.js')(app, fs);
 require('./routes/deleteroom.js')(app, fs);
 require('./routes/deletechannel.js')(app, fs);
+require('./routes/deleteuserfromgroup.js')(app, fs);
+require('./routes/deleteuserfromchannel.js')(app, fs);

@@ -3,6 +3,7 @@ module.exports = function (app, fs) {
       var roomObj;
       var rname = req.query.roomname;
       var roomDeleted = false;
+      
       fs.readFile('groupuser.json', 'utf-8', function (err, data) {
         if (err) {
           console.log(err);

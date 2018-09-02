@@ -15,7 +15,7 @@ export class AccountComponent implements OnInit {
   groupadmin: boolean;
   superadmin: boolean;
   availableRoles = ['user', 'groupAdmin'];
-  availableRolesSP = ['user', 'superAdmin', 'groupAdmin'];
+  availableRolesSP = ['user', 'superAdmin', 'groupAdmin', 'delete user'];
   constructor(private http: Http) { }
 
   ngOnInit() {

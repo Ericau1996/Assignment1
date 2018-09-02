@@ -18,26 +18,28 @@ module.exports = function (app, fs) {
           for (let i = 0; i<userObj.length; i++) {
             if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role == urole) {
               isUser = 1
-            }else if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role == "superAdmin" && urole !="superAdmin"){
+            }else if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role == "superAdmin" && urole !="superAdmin" && urole != "delete user"){
               isUser = 2
               userObj[i].name="user updated";
               userObj[i].email="user updated";
-              userObj[i].role="Not this id";
-            }else if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role == "groupAdmin" && urole == "user"){
+              userObj[i].role="user updated";
+            }else if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role == "groupAdmin" && urole != "groupAdmin" && urole != "delete user"){
               isUser = 2
               userObj[i].name="user updated";
               userObj[i].email="user updated";
-              userObj[i].role="Not this id";
-            }else if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role == "superAdmin" && urole == "user"){
+              userObj[i].role="user updated";
+            }else if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role == "user" && urole != "user" && urole != "delete user"){
               isUser = 2
               userObj[i].name="user updated";
               userObj[i].email="user updated";
-              userObj[i].role="Not this id";
-            }else if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role == "superAdmin" && urole == "groupAdmin"){
+              userObj[i].role="user updated";
+            }else if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role == "delete user" && urole != "delete user"){
               isUser = 2
-              userObj[i].name="user updated";
-              userObj[i].email="user updated";
-              userObj[i].role="Not this id";
+            }else if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role != "delete user" && urole == "delete user"){
+              isUser = 2
+              userObj[i].name="user deleted";
+              userObj[i].email="user deleted";
+              userObj[i].role="user deleted";
             }
           }
           if (isUser ==1) {

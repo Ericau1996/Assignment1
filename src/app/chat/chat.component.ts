@@ -113,6 +113,7 @@ export class ChatComponent implements OnInit {
   createRoom(event) {
     event.preventDefault();
     console.log(this.newRoomname);
+    if (this.newRoomname != undefined && this.newRoomname.trim() != '') {
     this.data = this.http.get(this.apiURL + 'addroom?roomname=' +this.newRoomname);
     this.data.subscribe(response => {
       console.log(response._body)
@@ -121,9 +122,27 @@ export class ChatComponent implements OnInit {
         alert('Room has been sucessfuly!')
         window.location.reload();
       } else {
-        alert('Error: create room.')
+        alert('Group already exist.')
+      }
+    });
+  } else {
+    alert('Please enter details.')
+  }}
+
+  addUserToRoom(event) {
+    event.preventDefault();
+    console.log(this.selectedUser);
+    console.log(this.selectedRoom);
+    this.data = this.http.get(this.apiURL + 'addusertogroup?room=' +this.selectedRoom + '&user=' +this.selectedUser);
+    this.data.subscribe(response => {
+      console.log(response._body)
+      console.log(typeof response._body);
+      if (response._body == 'true') {
+        alert('Add user to group has been sucessfuly!')
+        window.location.reload();
+      } else {
+        alert('Error.')
       }
     });
   }
-
 }

@@ -5,7 +5,7 @@ module.exports = function (app, fs) {
       var uname = req.query.username;
       var uemail = req.query.email;
       var urole = req.query.role;
-      
+      var userDeleted = false;
   
       fs.readFile('authdata.json', 'utf-8', function (err, data) {
         console.log(uname);
@@ -19,30 +19,20 @@ module.exports = function (app, fs) {
             if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role == urole) {
               isUser = 1
             }else if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role == "superAdmin" && urole !="superAdmin" && urole != "delete user"){
+              userObj.splice(i, 1);
               isUser = 2
-              userObj[i].name="user updated";
-              userObj[i].email="user updated";
-              userObj[i].role="user updated";
             }else if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role == "groupAdmin" && urole != "groupAdmin" && urole != "delete user"){
+              userObj.splice(i, 1);
               isUser = 2
-              userObj[i].name="user updated";
-              userObj[i].email="user updated";
-              userObj[i].role="user updated";
             }else if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role == "user" && urole != "user" && urole != "delete user"){
+              userObj.splice(i, 1);
               isUser = 2
-              userObj[i].name="user updated";
-              userObj[i].email="user updated";
-              userObj[i].role="user updated";
             }else if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role == "delete user" && urole != "delete user"){
+              userObj.splice(i, 1);
               isUser = 0
-              userObj[i].name="user deleted";
-              userObj[i].email="user deleted";
-              userObj[i].role="user deleted";
             }else if (userObj[i].name == uname && userObj[i].email == uemail && userObj[i].role != "delete user" && urole == "delete user"){
+              userObj.splice(i, 1);
               isUser = 4
-              userObj[i].name="user deleted";
-              userObj[i].email="user deleted";
-              userObj[i].role="user deleted";
             }else if (userObj[i].name == uname && userObj[i].email != uemail&& urole != "delete user") {
               isUser = 3
             }
@@ -66,11 +56,10 @@ module.exports = function (app, fs) {
           }else if (isUser == 3){
             res.send(false);
           }else if (isUser == 4){
-            userObj.push({ 'name': uname, 'email': uemail, 'role': urole });
             var newdata = JSON.stringify(userObj);
             fs.writeFile('authdata.json', newdata, 'utf-8', function (err) {
               if (err) throw err;
-              res.send(true);
+              res.send(false);
             });
           }
         }

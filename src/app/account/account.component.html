@@ -29,7 +29,7 @@
       Enter Email:&nbsp;
       <input type="email" placeholder="Email" [(ngModel)]='newEmail' name="newEmail" id="newEmail" required />
       <br>
-      Enter Role for change:&nbsp;
+      Enter Role for change/delete:&nbsp;
       <select [(ngModel)]="newRole" name="newRole" id="newRole" required>
         <option *ngFor="let newRole of availableRolesSP" [value]="newRole">{{newRole}}</option>
       </select>

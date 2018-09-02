@@ -57,7 +57,7 @@ export class AccountComponent implements OnInit {
         alert('User has been sucessfuly created/updated!')
         window.location.reload();
       } else {
-        alert('Username already exist.')
+        alert('Username already exist/deleted.')
       }
     });
   } else {

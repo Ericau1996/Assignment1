@@ -163,7 +163,7 @@
   <div *ngIf="groupadmin">
     <h4>Add user to channel:</h4>
       <form (submit)="addUserToChannel($event)">
-        Add user:&nbsp;
+        Add User:&nbsp;
         <select [(ngModel)]="selectedUserForChannel" name="selectedUserForChannel" id="selectedUserForChannel" required>
           <option *ngFor="let selectedUserForChannel of userArr" [value]="selectedUserForChannel">{{selectedUserForChannel}}</option>
         </select>

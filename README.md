@@ -13,6 +13,9 @@ Step 3: Open a new terminal and also type: `ng serve` in the Assignment1 file (I
 Step 4: Navigate to `http://localhost:4200/`.
 
 ## About git
+### The layout of git repository
+
+### The approach version control
 
 ## About Data Structures
 

@@ -16,7 +16,9 @@ Step 4: Navigate to `http://localhost:4200/`.
 
 ### The layout of git repository
 
+
 ### The approach version control
+
 
 ## About Data Structures
 
@@ -25,5 +27,9 @@ Step 4: Navigate to `http://localhost:4200/`.
 ## Angular Architecture
 
 ### Components
+
+
 ### Services
+
+
 ### Models

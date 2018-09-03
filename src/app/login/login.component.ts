@@ -9,6 +9,7 @@ import { Http, Response } from '@angular/http';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
   username: string = '';
   data: any = {};
@@ -19,13 +20,13 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  
+  //login button function
   loginUser(event) {
     event.preventDefault();
     this.getAuth();
   }
 
-
+  //checking the user exist or not
   getAuth() {
     this.data = this.http.get(this.apiURL + this.username);
     console.log(this.data);
@@ -37,6 +38,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  //using the data from getAuth & set item(username and rule to server)
   authenticate(details) {
     if (details == 'user') {
       sessionStorage.setItem('username', this.username);

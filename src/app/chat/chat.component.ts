@@ -8,6 +8,7 @@ import { Http, Response } from '@angular/http';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
+
 export class ChatComponent implements OnInit {
   username: string;
   messages = [];
@@ -39,24 +40,30 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
     this.username = sessionStorage.getItem('username');
     this.role = sessionStorage.getItem('role');
+
+    //if account role is super...
     if (this.role == 'superAdmin') {
       this.superadmin = true;
       console.log(this.superadmin);
-    } else {
+    }else {
       this.superadmin = false;
     }
+
+    //if account role is group...
     if (this.role == 'groupAdmin') {
       this.groupadmin = true;
       console.log(this.groupadmin);
     } else {
       this.groupadmin = false;
     }
+
+    //if no login
     if (!sessionStorage.getItem('username')) {
       console.log('Not validated');
       sessionStorage.clear();
       alert("Not a valid User");
       this.router.navigateByUrl('login');
-    } else if(this.role == 'groupAdmin'){
+    }else if(this.role == 'groupAdmin'){
       this.username = sessionStorage.getItem('username');
       console.log("Session started for: " + this.username+"Role: Super admin");
       this.connection = this.sockServ.getMessages().subscribe(message => {
@@ -83,16 +90,20 @@ export class ChatComponent implements OnInit {
       alert("Not a valid User");
       this.router.navigateByUrl('login');
     }
+
+    //set user data
     this.userData = this.http.get(this.apiURL + 'users');
       this.userData.subscribe(response => {
         this.userArr = response._body.split(',');
     });
+
+    //set room data
     this.roomData = this.http.get(this.apiURL + 'rooms');
       this.roomData.subscribe(response => {
         this.roomArr = response._body.split(',');
     });
 
-
+    //set channel as 'Room:Channel' format
     this.channelCData = this.http.get(this.apiURL + 'channels');
     this.channelCData.subscribe(response => {
       this.channelArr = response._body.split(',');
@@ -103,6 +114,7 @@ export class ChatComponent implements OnInit {
       console.log(this.channelgroupArrForChannel);
     });
 
+    //set channel under room
     this.channelData = this.http.get(this.apiURL + 'channels');
     this.channelData.subscribe(response => {
       this.channelArr = response._body.split(',');
@@ -122,12 +134,10 @@ export class ChatComponent implements OnInit {
         } else {
           console.log('channelgroupArr error');
         }
-
       }
       console.log(this.channelgroupArr);
     });
-
-    }
+  }
   
   //send message function
   sendMessage() {
@@ -167,9 +177,10 @@ export class ChatComponent implements OnInit {
         alert('Chat room already exist.')
       }
     });
-  } else {
-    alert('Please enter details.')
-  }}
+    }else {
+      alert('Please enter details.')
+    }
+  }
 
   //create channel to group
   selectedGroupForChannel: string;

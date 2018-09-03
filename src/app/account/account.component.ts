@@ -3,12 +3,12 @@ import { SocketService } from '../services/socket/socket.service';
 import { Router } from '@angular/router';
 import { Http, Response } from '@angular/http';
 
-
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']
 })
+
 export class AccountComponent implements OnInit {
   username: string;
   email: string;
@@ -19,17 +19,21 @@ export class AccountComponent implements OnInit {
   availableRolesSP = ['user', 'superAdmin', 'groupAdmin', 'delete user'];
   constructor(private sockServ: SocketService, private router: Router, private http: Http) { }
 
+  //load elements when user use this page
   ngOnInit() {
-    
     this.username = sessionStorage.getItem('username');
     this.role = sessionStorage.getItem('role');
     this.email = sessionStorage.getItem('email');
+
+    //if account role is super...
     if (this.role == 'superAdmin') {
       this.superadmin = true;
       console.log(this.superadmin);
     } else {
       this.superadmin = false;
     }
+    
+    //if account role is group...
     if (this.role == 'groupAdmin') {
       this.groupadmin = true;
       console.log(this.groupadmin);
@@ -37,12 +41,13 @@ export class AccountComponent implements OnInit {
       this.groupadmin = false;
     }
     
+    //if no login
     if (!sessionStorage.getItem('username')) {
       console.log('Not validated');
       sessionStorage.clear();
       alert("Not a valid User");
       this.router.navigateByUrl('login');
-    } else if(this.role == 'groupAdmin'){
+    }else if(this.role == 'groupAdmin'){
       this.username = sessionStorage.getItem('username');
     }else if(this.role == 'superAdmin'){
       this.username = sessionStorage.getItem('username');
@@ -63,6 +68,7 @@ export class AccountComponent implements OnInit {
   private apiURL = 'http://localhost:3000/api/reg?username=';
   data: any = {};
 
+  //create user function
   createUser(event) {
     event.preventDefault();
     console.log(this.newUsername);
@@ -83,5 +89,4 @@ export class AccountComponent implements OnInit {
   } else {
     alert('Please enter details.')
   }}
-
 }

@@ -1,7 +1,8 @@
 <h2>Welcome {{username}}</h2>
 
-
-
+<div *ngIf="superadmin">
+<div class="flipchat"><span class="1">Control Panel</span></div>
+<div class="panelchat">
 <div *ngIf="superadmin">
   <h4>Add Group:</h4>
   <form (submit)="createRoom($event)">
@@ -11,27 +12,27 @@
   </form>
 </div>
 <div *ngIf="superadmin">
-  <h4>Add channel:</h4>
+  <h4>Add Channel:</h4>
   <form (submit)="createChannel($event)">
-    Choose group:&nbsp;
+    Add Channel:&nbsp;
+    <input type="email" placeholder="Channel name" [(ngModel)]='newChannelname' name="newChannelname" id="newChannelname" required />
+    To Group:&nbsp;
     <select [(ngModel)]="selectedGroupForChannel" name="selectedGroupForChannel" id="selectedGroupForChannel" required>
         <option *ngFor="let selectedGroupForChannel of roomArr" [value]="selectedGroupForChannel">{{selectedGroupForChannel}}</option>
     </select>
-    Add channel:&nbsp;
-    <input type="email" placeholder="Channel name" [(ngModel)]='newChannelname' name="newChannelname" id="newChannelname" required />
     <button type="submit">Submit</button>
   </form>
 </div>
 <div *ngIf="superadmin">
-  <h4>Add user to group:</h4>
+  <h4>Add User to Group:</h4>
   <form (submit)="addUserToRoom($event)">
-    Choose group:&nbsp;
-    <select [(ngModel)]="selectedRoom" name="selectedRoom" id="selectedRoom" required>
-      <option *ngFor="let selectedRoom of roomArr" [value]="selectedRoom">{{selectedRoom}}</option>
-    </select>
-    Add user:&nbsp;
+    Add User:&nbsp;
     <select [(ngModel)]="selectedUser" name="selectedUser" id="selectedUser" required>
       <option *ngFor="let selectedUser of userArr" [value]="selectedUser">{{selectedUser}}</option>
+    </select>
+    To group:&nbsp;
+    <select [(ngModel)]="selectedRoom" name="selectedRoom" id="selectedRoom" required>
+      <option *ngFor="let selectedRoom of roomArr" [value]="selectedRoom">{{selectedRoom}}</option>
     </select>
     <button type="submit">Add</button>
   </form>
@@ -43,11 +44,11 @@
             <select [(ngModel)]="selectedUserForChannel" name="selectedUserForChannel" id="selectedUserForChannel" required>
               <option *ngFor="let selectedUserForChannel of userArr" [value]="selectedUserForChannel">{{selectedUserForChannel}}</option>
             </select>
-            Group:
+            To Group:
             <select [(ngModel)]="selectedUserGroupForChannel" name="selectedUserGroupForChannel" id="selectedUserGroupForChannel" required>
               <option *ngFor="let room of channelgroupArr" [value]="room.room">{{room.room}}</option>
             </select>
-            Channel:
+            Of Channel:
             <ng-container *ngIf="selectedUserGroupForChannel">
               <ng-container *ngFor="let room of channelgroupArr">
                 <ng-container *ngIf="room.room == selectedUserGroupForChannel">
@@ -83,11 +84,11 @@
       <div *ngIf="superadmin">
         <h4>Remove user from Chat room:</h4>
         <form (submit)="deleteUserFromGroup($event)">
-          User:
+          Remove User:
           <select [(ngModel)]="selectedUserDeleteGroup" name="selectedUserDeleteGroup" id="selectedUserDeleteGroup" required>
             <option *ngFor="let selectedUserDeleteGroup of userArr" [value]="selectedUserDeleteGroup">{{selectedUserDeleteGroup}}</option>
           </select>
-          Group:
+          From Group:
           <select [(ngModel)]="selectedGroupDeleteGroup" name="selectedGroupDeleteGroup" id="selectedGroupDeleteGroup" required>
             <option *ngFor="let selectedGroupDeleteGroup of roomArr" [value]="selectedGroupDeleteGroup">{{selectedGroupDeleteGroup}}</option>
           </select>
@@ -97,15 +98,15 @@
       <div *ngIf="superadmin">
         <h4>Remove user from Channel</h4>
         <form (submit)="deleteUserFromChannel($event)">
-          User:
+          Remove User:
           <select [(ngModel)]="selectedUserDeleteChannel" name="selectedUserDeleteChannel" id="selectedUserDeleteChannel" required>
             <option *ngFor="let selectedUserDeleteChannel of userArr" [value]="selectedUserDeleteChannel">{{selectedUserDeleteChannel}}</option>
           </select>
-          Group:
+          From Group:
           <select [(ngModel)]="selectedGroupDeleteChannel" name="selectedGroupDeleteChannel" id="selectedGroupDeleteChannel" required>
             <option *ngFor="let room of channelgroupArr" [value]="room.room">{{room.room}}</option>
           </select>
-          Channel:
+          Of Channel:
           <ng-container *ngIf="selectedGroupDeleteChannel">
         <ng-container *ngFor="let room of channelgroupArr">
             <ng-container *ngIf="room.room == selectedGroupDeleteChannel">
@@ -118,10 +119,13 @@
           <button type="submit">Delete</button>
         </form>
       </div>
+    </div>
+  </div>
 
 
-
-
+  <div *ngIf="groupadmin">
+      <div class="flipchat"><span class="1">Control Panel</span></div>
+      <div class="panelchat">
         <div *ngIf="groupadmin">
             <h4>Add Group:</h4>
             <form (submit)="createRoom($event)">
@@ -131,27 +135,27 @@
             </form>
           </div>
           <div *ngIf="groupadmin">
-            <h4>Add channel:</h4>
+            <h4>Add Channel:</h4>
             <form (submit)="createChannel($event)">
-              Choose group:&nbsp;
+              Add Channel:&nbsp;
+              <input type="email" placeholder="Channel name" [(ngModel)]='newChannelname' name="newChannelname" id="newChannelname" required />
+              To Group:&nbsp;
               <select [(ngModel)]="selectedGroupForChannel" name="selectedGroupForChannel" id="selectedGroupForChannel" required>
                   <option *ngFor="let selectedGroupForChannel of roomArr" [value]="selectedGroupForChannel">{{selectedGroupForChannel}}</option>
               </select>
-              Add channel:&nbsp;
-              <input type="email" placeholder="Channel name" [(ngModel)]='newChannelname' name="newChannelname" id="newChannelname" required />
               <button type="submit">Submit</button>
             </form>
           </div>
           <div *ngIf="groupadmin">
-            <h4>Add user to group:</h4>
+            <h4>Add User to Group:</h4>
             <form (submit)="addUserToRoom($event)">
-              Choose group:&nbsp;
+                Add User:&nbsp;
+                <select [(ngModel)]="selectedUser" name="selectedUser" id="selectedUser" required>
+                  <option *ngFor="let selectedUser of userArr" [value]="selectedUser">{{selectedUser}}</option>
+                </select>
+              To group:&nbsp;
               <select [(ngModel)]="selectedRoom" name="selectedRoom" id="selectedRoom" required>
                 <option *ngFor="let selectedRoom of roomArr" [value]="selectedRoom">{{selectedRoom}}</option>
-              </select>
-              Add user:&nbsp;
-              <select [(ngModel)]="selectedUser" name="selectedUser" id="selectedUser" required>
-                <option *ngFor="let selectedUser of userArr" [value]="selectedUser">{{selectedUser}}</option>
               </select>
               <button type="submit">Add</button>
             </form>
@@ -163,11 +167,11 @@
                       <select [(ngModel)]="selectedUserForChannel" name="selectedUserForChannel" id="selectedUserForChannel" required>
                         <option *ngFor="let selectedUserForChannel of userArr" [value]="selectedUserForChannel">{{selectedUserForChannel}}</option>
                       </select>
-                      Group:
+                      To Group:
                       <select [(ngModel)]="selectedUserGroupForChannel" name="selectedUserGroupForChannel" id="selectedUserGroupForChannel" required>
                         <option *ngFor="let room of channelgroupArr" [value]="room.room">{{room.room}}</option>
                       </select>
-                      Channel:
+                      Of Channel:
                       <ng-container *ngIf="selectedUserGroupForChannel">
                         <ng-container *ngFor="let room of channelgroupArr">
                           <ng-container *ngIf="room.room == selectedUserGroupForChannel">
@@ -203,11 +207,11 @@
                 <div *ngIf="groupadmin">
                   <h4>Remove user from Chat room:</h4>
                   <form (submit)="deleteUserFromGroup($event)">
-                    User:
+                    Remove User:
                     <select [(ngModel)]="selectedUserDeleteGroup" name="selectedUserDeleteGroup" id="selectedUserDeleteGroup" required>
                       <option *ngFor="let selectedUserDeleteGroup of userArr" [value]="selectedUserDeleteGroup">{{selectedUserDeleteGroup}}</option>
                     </select>
-                    Group:
+                    From Group:
                     <select [(ngModel)]="selectedGroupDeleteGroup" name="selectedGroupDeleteGroup" id="selectedGroupDeleteGroup" required>
                       <option *ngFor="let selectedGroupDeleteGroup of roomArr" [value]="selectedGroupDeleteGroup">{{selectedGroupDeleteGroup}}</option>
                     </select>
@@ -217,15 +221,15 @@
                 <div *ngIf="groupadmin">
                   <h4>Remove user from Channel</h4>
                   <form (submit)="deleteUserFromChannel($event)">
-                    User:
+                    Remove User:
                     <select [(ngModel)]="selectedUserDeleteChannel" name="selectedUserDeleteChannel" id="selectedUserDeleteChannel" required>
                       <option *ngFor="let selectedUserDeleteChannel of userArr" [value]="selectedUserDeleteChannel">{{selectedUserDeleteChannel}}</option>
                     </select>
-                    Group:
+                    From Group:
                     <select [(ngModel)]="selectedGroupDeleteChannel" name="selectedGroupDeleteChannel" id="selectedGroupDeleteChannel" required>
                       <option *ngFor="let room of channelgroupArr" [value]="room.room">{{room.room}}</option>
                     </select>
-                    Channel:
+                    Of Channel:
                     <ng-container *ngIf="selectedGroupDeleteChannel">
                   <ng-container *ngFor="let room of channelgroupArr">
                       <ng-container *ngIf="room.room == selectedGroupDeleteChannel">
@@ -238,7 +242,8 @@
                     <button type="submit">Delete</button>
                   </form>
                 </div>
-
+              </div>
+            </div>
 
 
 <br>

@@ -15,12 +15,12 @@ module.exports = function (app, fs) {
                 if (roomObj[i].user[k] == uname) {
                   console.log('in if statement');
                   for (let j = 0; j < roomObj[i].channel.length; j++) {
-                    console.log('in loop1');
+                    console.log('in room');
                     for (let x = 0; x < roomObj[i].channel[j].user.length; x++) {
-                      console.log('in loop 2');
+                      console.log('in channel');
                       if (roomObj[i].channel[j].user[x] == uname){
                         roomObj[i].channel[j].user.splice(x,1);
-                        console.log('user deleted from channel: ' + roomObj[i].channel[j].channel )
+                        console.log('Remove user on channel: ' + roomObj[i].channel[j].channel )
                       } else {
                         console.log('user name:'+roomObj[i].channel[j].user[x]);
                       }
@@ -37,7 +37,7 @@ module.exports = function (app, fs) {
             var newdata = JSON.stringify(roomObj);
             fs.writeFile('groupuser.json', newdata, 'utf-8', function (err) {
               if (err) throw err;
-              console.log('user deleted from group and channels')
+              console.log('user deleted from channels')
               res.send(true);
             });
           } else {

@@ -19,7 +19,7 @@ module.exports = function (app, fs) {
               }
             }
             if (isChannel > 0) {
-              console.log('channel already exist in room');
+              console.log('Channel already exist.');
             } else {
                 roomObj[i].channel.push({ 'channel': cname, 'user': [] });
               channelAdded = true;

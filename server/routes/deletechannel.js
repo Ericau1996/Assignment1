@@ -23,7 +23,6 @@ module.exports = function (app, fs) {
           var newdata = JSON.stringify(roomObj);
           if (channelDeleted == true) {
             fs.writeFile('groupuser.json', newdata, 'utf-8', function (err) {
-              console.log('channel deleted: ' + cname)
               if (err) throw err;
               res.send(true);
             });

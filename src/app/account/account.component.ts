@@ -23,6 +23,7 @@ export class AccountComponent implements OnInit {
     
     this.username = sessionStorage.getItem('username');
     this.role = sessionStorage.getItem('role');
+    this.email = sessionStorage.getItem('email');
     if (this.role == 'superAdmin') {
       this.superadmin = true;
       console.log(this.superadmin);

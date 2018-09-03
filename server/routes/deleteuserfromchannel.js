@@ -20,7 +20,7 @@ module.exports = function (app, fs) {
                         if (roomObj[i].channel[j].user[x] == uname) {
                             roomObj[i].channel[j].user.splice(x, 1);
                           userDeleted = true;
-                          console.log('user deleted from channel: ' + roomObj[i].channel[j].channel)
+                          console.log('Remove user on channel: ' + roomObj[i].channel[j].channel)
                           break;
                         }
                       }

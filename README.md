@@ -22,3 +22,6 @@ Step 4: Navigate to `http://localhost:4200/`.
 ## About REST API	
 
 ## Angular Architecture
+### Components
+### Services
+### Models

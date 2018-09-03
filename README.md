@@ -33,3 +33,4 @@ My version control system is provided by Git. Verison control system is using fo
 
 
 ### Models
+Modules is an indispensable part of my project. This is because it helps my to define the structure of the data, every Angular groups related code together into Modules. For example, 'HttpModule', 'AccountComponent', 'SocketService', 'AppComponent' and 'BrowserModule' etc. This type of components, services, and models are defined and grouped clearly in Modules. 'AppModule' is the most importand part of Module which represents the entire application.

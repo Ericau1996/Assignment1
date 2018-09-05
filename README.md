@@ -31,24 +31,34 @@ Channel: It is part of group data and recording channel name and username inside
 In this project, I used http, response from @angular/http and CORS package to cross over to the server for sending and retrieving data. The reason why using CORS package becaus of the security problem, it is helpful to transfer data from localhost:3000 to 4200. In addition, route is defined to three parts, they are User, Chatroom(Group) and Channel.
 
 ### User:
-user.js
-auth.js
-register.js
+user.js(used for identify user): access through http://localhost:3000/api/users
+
+auth.js(used for check login message): access through http://localhost:3000/api/auth
+
+register.js(used for create a new user): access through http://localhost:3000/api/reg
 
 ### Chatroom(Group):
-chatroom.js
-addroom.js
-deleteroom.js
-addusertogroup.js
-deleteuserfromgroup.js
+chatroom.js(used for identify group): access through http://localhost:3000/api/rooms
+
+addroom.js(used for add a new chat room): access through http://localhost:3000/api/addroom
+
+deleteroom.js(used for delete chat room): access through http://localhost:3000/api/deleteroom
+
+addusertogroup.js(used for add user to group): access through http://localhost:3000/api/addusertogroup
+
+deleteuserfromgroup.js(used for remove user from group): access through http://localhost:3000/api/deleteuserfromgroup
 
 
 ### Channel:
-channels.js
-addchannel.js
-deletechannel.js
-addusertochannel.js
-deleteuserfromchannel.js
+channels.js(used for identify channel in group): access through http://localhost:3000/api/channels
+
+addchannel.js(used for add a new channel): access through http://localhost:3000/api/addchannel
+
+deletechannel.js(used for delete channel): access through http://localhost:3000/api/deletechannel
+
+addusertochannel.js(used for add user to channel): access through http://localhost:3000/api/addusertochannel
+
+deleteuserfromchannel.js(used for remove user from channel): access through http://localhost:3000/api/deleteuserfromchannel
 
 ## Angular Architecture
 Index: the frame of user interface. Every page can use the method if I stored JS and CSS method in this page.

@@ -12,7 +12,6 @@ Step 3: Open a new terminal and also type: `ng serve` in the Assignment1 file (I
 Step 4: Navigate to `http://localhost:4200/`.
 
 ## About git
-
 ### The layout of git repository
 This git repository layout is 'Public' which refers to this file can be downloaded by everyone. Moreover, only master origin is set in this repository because of no largest changing on this project. Furthermore, take workshop task as a reference, the server is independently saved to the server folder. Therefore, user need to set up the server before use this programme.
 
@@ -29,7 +28,13 @@ Group: is stored in groupuser.json. It is defined each group data, every group i
 Channel: It is part of group data and recording channel name and username inside.
 
 ## About REST API	
+In this project, I used http, response from @angular/http and CORS package to cross over to the server for sending and retrieving data. The reason why using CORS package becaus of the security problem, it is helpful to transfer data from localhost:3000 to 4200. In addition, route is defined to three parts, they are User, Chatroom(Group) and Channel.
 
+### User:
+
+### Chatroom(Group):
+
+### Channel:
 
 
 ## Angular Architecture

@@ -31,11 +31,24 @@ Channel: It is part of group data and recording channel name and username inside
 In this project, I used http, response from @angular/http and CORS package to cross over to the server for sending and retrieving data. The reason why using CORS package becaus of the security problem, it is helpful to transfer data from localhost:3000 to 4200. In addition, route is defined to three parts, they are User, Chatroom(Group) and Channel.
 
 ### User:
+user.js
+auth.js
+register.js
 
 ### Chatroom(Group):
+chatroom.js
+addroom.js
+deleteroom.js
+addusertogroup.js
+deleteuserfromgroup.js
+
 
 ### Channel:
-
+channels.js
+addchannel.js
+deletechannel.js
+addusertochannel.js
+deleteuserfromchannel.js
 
 ## Angular Architecture
 Index: the frame of user interface. Every page can use the method if I stored JS and CSS method in this page.

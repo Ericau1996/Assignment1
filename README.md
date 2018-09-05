@@ -34,31 +34,40 @@ In this project, I used http, response from @angular/http and CORS package to cr
 user.js(used for identify user): access through http://localhost:3000/api/users
 
 auth.js(used for check login message): access through http://localhost:3000/api/auth
+Requested variables: True,if user is exist; False, if username is not exist.
 
 register.js(used for create a new user): access through http://localhost:3000/api/reg
+Requested variables: True, if username is not exist; False, if username is exist.
 
 ### Chatroom(Group):
 chatroom.js(used for identify group): access through http://localhost:3000/api/rooms
 
 addroom.js(used for add a new chat room): access through http://localhost:3000/api/addroom
+Requested variables: True, if chatroom is not exist; False, if chatroom is exist.
 
 deleteroom.js(used for delete chat room): access through http://localhost:3000/api/deleteroom
+Requested variables: True, if chatroom is exist; False, if chatroom is not exist.
 
 addusertogroup.js(used for add user to group): access through http://localhost:3000/api/addusertogroup
+Requested variables: True, if user is not exist in group; False, if user is exist in group.
 
 deleteuserfromgroup.js(used for remove user from group): access through http://localhost:3000/api/deleteuserfromgroup
-
+Requested variables: True, ; False, .
 
 ### Channel:
 channels.js(used for identify channel in group): access through http://localhost:3000/api/channels
 
 addchannel.js(used for add a new channel): access through http://localhost:3000/api/addchannel
+Requested variables: True, if addchannel is not exist; False, if addchannel is exist.
 
 deletechannel.js(used for delete channel): access through http://localhost:3000/api/deletechannel
+Requested variables: True, if addchannel is exist; False, if addchannel is not exist.
 
 addusertochannel.js(used for add user to channel): access through http://localhost:3000/api/addusertochannel
+Requested variables: True, if user is not exist in channel of group; False, if user is exist in channel of group.
 
 deleteuserfromchannel.js(used for remove user from channel): access through http://localhost:3000/api/deleteuserfromchannel
+Requested variables: True, if user is exist in channel of group; False, if user is not exist in channel of group
 
 ## Angular Architecture
 Index: the frame of user interface. Every page can use the method if I stored JS and CSS method in this page.

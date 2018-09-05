@@ -1,5 +1,6 @@
+# Hiu Lok Au (s5036225)
 # Chat Room assignment
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
+Git hub clone link: https://github.com/Ericau1996/Assignment1.git
 
 ## Development server
 Step 1: `cd server` move to server file.

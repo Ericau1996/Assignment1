@@ -1,5 +1,5 @@
 # Hiu Lok Au (s5036225)
-# Chat Room assignment
+# Chat Room assignment 1 & 2
 Git hub clone link: https://github.com/Ericau1996/Assignment1.git
 
 ## Development server
